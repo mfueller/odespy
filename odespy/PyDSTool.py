@@ -144,7 +144,8 @@ class Vode_pyds(Pyds):
 
 if __name__ == '__main__':
 
-    f = lambda (u00,u11),t: [u11,-u00]
+    #f = lambda (u00,u11),t: [u11,-u00]
+    f = None
     method = Vode_pyds(f)
     method.set_initial_condition([0.,1.])
     u,t = method.solve(np.linspace(0.,10.,50))

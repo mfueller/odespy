@@ -973,7 +973,7 @@ class Odepack(Solver):
     def expand_rwork(self, new_lrw, expand=False):
         '''
         Length of real work array is smaller than actually required length.
-	Then we could expand work array to avoid this error.
+        Then we could expand work array to avoid this error.
         '''
         print('The length of real work array has been reset to %d' % new_lrw)
         if expand:          # Expand real arrays for linearly implicit solvers
@@ -984,7 +984,7 @@ class Odepack(Solver):
         '''
         Extension module return an actually required length for
         integer work array when it is too short.
-	Then we could expand work array to required length to avoid this error.
+        Then we could expand work array to required length to avoid this error.
         '''
         print('The length of integer work array has been reset to %d' % new_liw)
         if expand:          # Expand integer arrays for linearly implicit solvers
@@ -1170,7 +1170,7 @@ class Odepack(Solver):
                  self.itol, self.rtol, self.atol, itask, istate, self.iopt,
                  self.rwork, self.lrw, self.iwork, self.liw, self.mf), **self._extra_args_fortran)
             tried += 1
-	    # "istate" indicates the returned status
+            # "istate" indicates the returned status
             if istate >= 1:
                 # successful return status
                 break
@@ -1195,7 +1195,7 @@ class Odepack(Solver):
                 else:   # Unavoidable interrupts
                     sys.exit(1)  #  Interrupt
                 istate = 1
-	return u_new
+        return u_new
 
 ### end of class Odepack ###
 
@@ -1224,8 +1224,8 @@ class Lsode(Odepack):
     _extra_args_fortran = {}
 
     def adjust_parameters(self):
-	"""Properties for new parameters in this solver."""
-       # If jac_banded is input in form of jac(u,t,ml,mu),
+        """Properties for new parameters in this solver."""
+        # If jac_banded is input in form of jac(u,t,ml,mu),
         # wrap jac_banded to jac_banded_f77 for Fortran code
         self._parameters['jac_banded']['paralist_old'] = 'u,t,ml,mu'
         self._parameters['jac_banded']['paralist_new'] = 't,u,ml,mu'
@@ -1262,7 +1262,7 @@ values:
         Odepack.adjust_parameters(self)
 
     def set_extra_args(self):
-	# ml & mu are required to be extra parameters for banded Jacobian.
+        # ml & mu are required to be extra parameters for banded Jacobian.
         if hasattr(self,'ml') and hasattr(self,'mu'):
             if self.iter_method == 4 and \
                     (not hasattr(self.jac_f77, '_cpointer')):
@@ -1335,7 +1335,7 @@ class Lsoda(Odepack):
     was successful as far as '''
 
     def adjust_parameters(self):
-	"""Properties for new parameters in this solver."""
+        """Properties for new parameters in this solver."""
         # If jac_banded is input in form of jac(u,t,ml,mu),
         # wrap jac_banded to jac_banded_f77 for Fortran code
         self._parameters['jac_banded']['paralist_old'] = 'u,t,ml,mu'
@@ -1364,7 +1364,7 @@ Jacobian type choice with 4 possible values:
         Odepack.adjust_parameters(self)
 
     def set_extra_args(self):
-	# ml & mu are required to be extra parameters for banded Jacobian.
+        # ml & mu are required to be extra parameters for banded Jacobian.
         if hasattr(self,'ml') and hasattr(self,'mu'):
             if self.iter_method == 4 and \
                     (not hasattr(self.jac_f77, '_cpointer')):
@@ -1448,7 +1448,7 @@ class Lsodar(Odepack):
     was successful as far as '''
 
     def adjust_parameters(self):
-	"""Properties for new parameters in this solver."""
+        """Properties for new parameters in this solver."""
         # If jac_banded is input in form of jac(u,t,ml,mu),
         # wrap jac_banded to jac_banded_f77 for Fortran code
         self._parameters['jac_banded']['paralist_old'] = 'u,t,ml,mu'
@@ -1489,7 +1489,7 @@ Jacobian type choice with 4 possible values:
 
 
     def set_extra_args(self):
-	# ml & mu are required to be extra parameters for banded Jacobian.
+        # ml & mu are required to be extra parameters for banded Jacobian.
         if hasattr(self,'ml') and hasattr(self,'mu'):
             if self.iter_method == 4 and \
                     (not hasattr(self.jac_f77, '_cpointer')):
@@ -1566,7 +1566,7 @@ class Lsodes(Odepack):
 
 
     def adjust_parameters(self):
-	"""Properties for new parameters in this solver."""
+        """Properties for new parameters in this solver."""
         # If jac_column is input in form of jac(u,t,j),
         # wrap jac_column to jac_column_f77(t,u,j-1) for Fortran code.
         self._parameters['jac_column']['paralist_old'] = 'u,t,j-1,ia,ja'
