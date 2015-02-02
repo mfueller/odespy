@@ -61,17 +61,17 @@ for solver in solvers:
 
 # Print
 for solver in results:
-    print '%-20s %s' % (solver, ' '.join(['%.1E' % e
-                        for e in results[solver]['error']]))
+    print('%-20s %s' % (solver, ' '.join(['%.1E' % e
+                        for e in results[solver]['error']])))
 
 # Analyze convergence
 from scitools.convergencerate import OneDiscretizationPrm
 pairwise_rates = OneDiscretizationPrm.pairwise_rates  # short form
 
-print '\n\nConvergence results for %d periods' % num_periods
+print('\n\nConvergence results for %d periods' % num_periods)
 for solver_name in results:
     rates, C = pairwise_rates(results[solver_name]['dt'],
                               results[solver_name]['error'])
     rates = ', '.join(['%.1f' % rate for rate in rates])
-    print '%-20s r: %s E_min=%.1E' % \
-          (solver_name, rates, min(results[solver_name]['error']))
+    print('%-20s r: %s E_min=%.1E' % \
+          (solver_name, rates, min(results[solver_name]['error'])))

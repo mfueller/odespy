@@ -19,13 +19,13 @@ solver.set_initial_condition(problem.U0)
 u, t = solver.solve(tp)
 
 method = solver.__class__.__name__
-print '%.8f  %s' % (u.max(), method)
+print('%.8f  %s' % (u.max(), method))
 
 if solver.has_u_t_all():
     plt.plot(solver.t_all, solver.u_all, 'bo',
              tp, problem.u_exact(tp), 'g-')
-    print '%s used %d steps (%d specified)' % \
-          (method, len(solver.u_all), len(tp))
+    print('%s used %d steps (%d specified)' % \
+          (method, len(solver.u_all), len(tp)))
 else:
     plt.plot(tp, solver.u, tp, problem.u_exact(tp))
 plt.legend([method, 'exact'])

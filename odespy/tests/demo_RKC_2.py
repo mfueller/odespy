@@ -74,7 +74,7 @@ jac_constant = 1
 
 st.figure()
 method = RKC
-print 'This test will take several minutes, please wait...'
+print('This test will take several minutes, please wait...')
 
 # Test case 1: RKC with f, jac_constant, spcrad
 m = method(f, rtol=rtol, atol=atol, spcrad=spcrad, jac_constant=jac_constant)

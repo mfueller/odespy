@@ -17,7 +17,7 @@ time_points = numpy.linspace(0, T, N+1)
 
 u, t = solver.solve(time_points)
 
-print 'Final u(t=%g)=%g after %d steps' % (t[-1], u[-1], len(u)-1)
+print('Final u(t=%g)=%g after %d steps' % (t[-1], u[-1], len(u)-1))
 
 from matplotlib.pyplot import *
 plot(t, u)

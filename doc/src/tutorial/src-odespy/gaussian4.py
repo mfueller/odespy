@@ -36,8 +36,8 @@ for center_point in center_points:
             u_max = u.max()
             solver.u_max = u_max   # store key result
 
-            print '%s: u_max=%g c/s=%g %s' % \
-                  (method, solver.u_max, center_point/s, str(solver))
+            print('%s: u_max=%g c/s=%g %s' % \
+                  (method, solver.u_max, center_point/s, str(solver)))
 
             results.append((method, center_point, tol, u_max))
 
@@ -53,13 +53,13 @@ for method, center_point, tol, u_max in results:
         results2[method][center_point][tol] = {}
     results2[method][center_point][tol] = u_max
 
-print '\n\n======================================================='
+print('\n\n=======================================================')
 for method in results2:
     for center_point in results2[method]:
         for tol in results2[method][center_point]:
-            print '%s, c=%g, tol=%E, u_max=%.6f' % \
+            print('%s, c=%g, tol=%E, u_max=%.6f' % \
                   (method, center_point, tol,
-                   results2[method][center_point][tol])
+                   results2[method][center_point][tol]))
 #        print '\n'
 #    print '\n\n'
 

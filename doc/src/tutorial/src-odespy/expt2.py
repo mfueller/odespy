@@ -18,7 +18,7 @@ dt = 0.5
 N = round(int(T/float(dt)))
 time_points = linspace(0, T, N+1)
 u, t = solver.solve(time_points)
-print u
+print(u)
 
 from matplotlib.pyplot import *
 plot(t, u, 'r-o',

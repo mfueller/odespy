@@ -51,7 +51,7 @@ def _test():
     inverse = Inverse(f, x0=0, I=[0, 4], resolution=10)
     x, y = inverse.discrete()
     g = inverse.continuous()
-    print 'max error:', inverse.verify()
+    print('max error:', inverse.verify())
 
     from matplotlib.pyplot import plot, legend, savefig, show
     g_e = lambda y: y**2  # exact inverse function

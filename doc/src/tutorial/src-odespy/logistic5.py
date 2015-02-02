@@ -21,7 +21,7 @@ def terminate(u, t, step_no):
     return abs(u[step_no] - R) < tol
 
 u, t = solver.solve(time_points, terminate)
-print 'Final u(t=%g)=%g' % (t[-1], u[-1])
+print('Final u(t=%g)=%g' % (t[-1], u[-1]))
 
 from matplotlib.pyplot import *
 plot(t, u, 'r-')

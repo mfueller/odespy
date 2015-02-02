@@ -73,11 +73,11 @@ exact_final = [1.8371e-2, 1.3578e-2, 1.5864e-2, 2.3805e-2, 3.7245e-2,
 m = method(res=res, adda_lsodis=adda, atol=atol, rtol=rtol, jac_lsodis=jac)
 m.set_initial_condition(u0)
 y, t = m.solve(time_points)
-print 'Max error for test case 1 is %g' % max(y[-1] - exact_final)
+print('Max error for test case 1 is %g' % max(y[-1] - exact_final))
 
 # Test case 2:  With res & adda
 m = method(res=res, adda_lsodis=adda, atol=atol, rtol=rtol,lrw=4000,liw=100)
 m.set_initial_condition(u0)
 y, t = m.solve(time_points)
-print 'Max error for test case 2 is %g' % max(y[-1] - exact_final)
+print('Max error for test case 2 is %g' % max(y[-1] - exact_final))
 

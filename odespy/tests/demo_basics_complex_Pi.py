@@ -18,8 +18,8 @@ fail_solvers = [name for name in list_available_solvers() if name not in complex
 f = lambda u, t: 1./(t - 10. + 1j)
 u0, time_points = 0, np.linspace(0., 20., 200)
 
-print """ Scalar ODE with complex value
- u' =  1./(t - 10 + 1j) """
+print(""" Scalar ODE with complex value
+ u' =  1./(t - 10 + 1j) """)
 
 succeed_no = 0
 for solver in complex_solvers:
@@ -28,6 +28,6 @@ for solver in complex_solvers:
         method.set_initial_condition(u0)
         u,t = method.solve(time_points)
         success = np.allclose(u[-1].imag, -2*np.arctan(10))
-        print solver, 'Succeed' if success else 'Fail'
+        print(solver, 'Succeed' if success else 'Fail')
     except:
-        print 'Failed when solver is %s' % solver
+        print('Failed when solver is %s' % solver)

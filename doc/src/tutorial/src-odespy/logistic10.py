@@ -13,7 +13,7 @@ Cf2py intent(out) udot
       return
       end
 """ % (a, R)
-print f_f77_str
+print(f_f77_str)
 #import sys; sys.exit(1)
 
 import odespy

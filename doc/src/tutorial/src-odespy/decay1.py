@@ -26,11 +26,11 @@ def terminate(u, t, step_no):
 
 u, t = solver.solve(time_points, terminate)
 
-print "Solve u'=%g*u, u(0)=%g, for t in [%g, %g] and u>%g" % \
-      (c, A, time_points[0], time_points[-1], tol)
-print 'Final u(t=%g)=%g after %d steps' % (t[-1], u[-1], len(u)-1)
+print("Solve u'=%g*u, u(0)=%g, for t in [%g, %g] and u>%g" % \
+      (c, A, time_points[0], time_points[-1], tol))
+print('Final u(t=%g)=%g after %d steps' % (t[-1], u[-1], len(u)-1))
 
 from matplotlib.pyplot import *
-print plot
+print(plot)
 plot(t, u)
 show()

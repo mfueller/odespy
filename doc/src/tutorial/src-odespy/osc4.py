@@ -73,9 +73,9 @@ for solver in solvers:
         t0 = time.clock()
         u, t = solver.solve(time_points)
         cpu_time = time.clock() - t0
-    except Exception, e:
-        print solver_name, 'FAILED!'
-        print e
+    except Exception as e:
+        print(solver_name, 'FAILED!')
+        print(e)
         continue  # continue with next pass in the loop
 
     theta = u[:,0]
@@ -88,6 +88,6 @@ for solver in solvers:
 
 # Print
 for solver_name in results:
-    print '%-50s %.1E %.2f' % (solver_name,
+    print('%-50s %.1E %.2f' % (solver_name,
                                results[solver_name]['error'],
-                               results[solver_name]['cpu'])
+                               results[solver_name]['cpu']))

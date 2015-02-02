@@ -7,12 +7,12 @@ def run(problem, tp, solver):
 
     u, t = solver.solve(tp)
     solver.u_max = u.max()
-    print '%.4f  %s' % (solver.u_max, method)
+    print('%.4f  %s' % (solver.u_max, method))
 
     if solver.has_u_t_all():
         plt.plot(solver.t_all, solver.u_all)
-        print '%s used %d steps (%d specified)' % \
-              (method, len(solver.u_all), len(tp))
+        print('%s used %d steps (%d specified)' % \
+              (method, len(solver.u_all), len(tp)))
     else:
         plt.plot(solver.t, solver.u)
     legend.append(method)

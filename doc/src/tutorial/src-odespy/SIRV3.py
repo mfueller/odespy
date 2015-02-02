@@ -33,10 +33,10 @@ I_max = np.array([simulate(beta, nu, p0, S0, I0, V_T) for V_T in V_Ts])
 
 tol = 5 # tolerance for comparing I_max[i] with final I_max[-1]
 i = 0
-print I_max
+print(I_max)
 while I_max[i] - I_max[-1] > tol:
     i += 1
-print 'No use in letting V_T > %d' % (V_Ts[i])
+print('No use in letting V_T > %d' % (V_Ts[i]))
 
 import matplotlib.pyplot as plt
 plt.plot(V_Ts, I_max, 'b-')

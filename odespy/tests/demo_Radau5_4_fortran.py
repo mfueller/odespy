@@ -91,7 +91,7 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'r-', title="Radau5 with Fortran subroutines",
         legend="with f, mas & jac", hold="on")
-print 'Max error for test case 1 is %g' % max(u[-1] - exact_final)
+print('Max error for test case 1 is %g' % max(u[-1] - exact_final))
 
 # Test case 2: Radau5, with f & mas
 m = method(None, f_f77=f_str, rtol=rtol, atol=atol, mas_f77=mas_str)
@@ -99,6 +99,6 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'g*', title="Radau5 with Fortran subroutines",
         legend="with f & mas", hold="on")
-print 'Max error for test case 2 is %g' % max(u[-1] - exact_final)
+print('Max error for test case 2 is %g' % max(u[-1] - exact_final))
 
 os.remove('tmp_callback.so')

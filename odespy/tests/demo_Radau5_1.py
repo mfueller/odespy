@@ -29,7 +29,7 @@ u0 = np.zeros(8, float)
 u0[0], u0[-1] = 1., .0057
 time_points = np.linspace(0., 10., 20)
 
-print "HIRES, chemical reaction, mildly stiff"
+print("HIRES, chemical reaction, mildly stiff")
 st.figure()
 
 # Loop for all possible solvers
@@ -38,4 +38,4 @@ for solver in ['Vode', 'Radau5Explicit']:
     method.set_initial_condition(u0)
     u,t = method.solve(time_points)
     st.plot(t, u[:,0], hold="on", legend=solver, axis=[0.,10.,0.,1.])
-    print 'Succeed when solver is %s' % solver
+    print('Succeed when solver is %s' % solver)

@@ -78,22 +78,22 @@ def _run_test_problems(problem):
                      'f_kwargs')
     kwargs = {key: problem[key] for key in problem
               if key not in special_names}
-    print problem.get('help', '')
+    print(problem.get('help', ''))
     for method in methods:
 
         solver = eval('odespy.%s' % method)(problem['f'], **kwargs)
-        print 'Testing %s' % method
+        print('Testing %s' % method)
         solver.set_initial_condition(problem['u0'])
         u, t = solver.solve(problem['time_points'])
 
         if 'f_with_args' in problem and 'f_args' in problem:
-            print 'Testing %s with f_args' % method
+            print('Testing %s with f_args' % method)
             solver = eval('odespy.%s' % method)(
                 problem['f_with_args'], f_args=problem['f_args'], **kwargs)
             solver.set_initial_condition(problem['u0'])
             u, t = solver.solve(problem['time_points'])
         if 'f_with_kwargs' in problem and 'f_kwargs' in problem:
-            print 'Testing %s with f_kwargs' % method
+            print('Testing %s with f_kwargs' % method)
             solver = eval('odespy.%s' % method)(
                 problem['f_with_kwargs'], f_kwargs=problem['f_kwargs'],**kwargs)
             solver.set_initial_condition(problem['u0'])

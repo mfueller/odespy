@@ -23,7 +23,7 @@ u, t = solver.solve(time_points)
 
 u_exact = f.A*numpy.exp(f.c*t)
 error = numpy.abs(u_exact - u).max()
-print 'Max deviation of numerical solution:', error
+print('Max deviation of numerical solution:', error)
 
 from matplotlib.pyplot import *
 plot(t, u, 'r-', t, u_exact, 'bo')

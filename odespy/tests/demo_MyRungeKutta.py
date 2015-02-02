@@ -38,14 +38,14 @@ u0, t0, tn, n_points = 1., 0., 1., 5
 time_points = np.linspace(t0, tn, n_points)
 
 orders = []  # list for calculated orders
-for m in bt.keys():
+for m in list(bt.keys()):
     # user-defined method, without order suplied 
     method = MyRungeKutta(f, butcher_tableau=bt[m]['table'])
     orders += [method.get_order()]
     method.set_initial_condition(u0)
     u,t = method.solve(time_points)
     error = abs((u[-1] - np.exp(-1.))/np.exp(-1.))
-    print 'Error is %g with solver %s' % (error, m)
+    print('Error is %g with solver %s' % (error, m))
 
 
 

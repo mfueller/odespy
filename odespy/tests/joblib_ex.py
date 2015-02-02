@@ -34,7 +34,7 @@ memory = Memory(cachedir='tmp', verbose=0)
 
 @memory.cache(ignore=['data'])
 def retrieve(name, data=None):
-    print 'joblib save of', name
+    print('joblib save of', name)
     return data
 
 save = retrieve
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     create_big_data(1000)  # create pieces and store in joblib
     data = retrieve_big_data()
     data = compute(data)
-    print data['arrays']['b'][-12:]
+    print(data['arrays']['b'][-12:])
 
 # Try to do different things with b and see if retrieve is ever
 # called.

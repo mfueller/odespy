@@ -66,7 +66,7 @@ class RungeKutta34(Explicit_ODE):
     
     def initialize(self):
         #Reset statistics
-        for k in self.statistics.keys():
+        for k in list(self.statistics.keys()):
             self.statistics[k] = 0
     
     def _set_initial_step(self, initstep):
@@ -182,13 +182,13 @@ class RungeKutta34(Explicit_ODE):
         if initialize:
             self.solver_iterator = self._iter(t,y,tf)
 
-        return self.solver_iterator.next()
+        return next(self.solver_iterator)
     
     def integrate(self, t, y, tf, opts):
         """
         Integrates (t,y) values until t > tf
         """
-        [flags, tlist, ylist] = zip(*list(self._iter(t, y, tf)))
+        [flags, tlist, ylist] = list(zip(*list(self._iter(t, y, tf))))
         
         return flags[-1], tlist, ylist
     
@@ -313,13 +313,13 @@ class RungeKutta4(Explicit_ODE):
         if initialize:
             self.solver_iterator = self._iter(t,y,tf)
 
-        return self.solver_iterator.next()
+        return next(self.solver_iterator)
     
     def integrate(self, t, y, tf, opts):
         """
         Integrates (t,y) values until t > tf
         """
-        [flags, tlist, ylist] = zip(*list(self._iter(t, y, tf)))
+        [flags, tlist, ylist] = list(zip(*list(self._iter(t, y, tf))))
         
         return flags[-1], tlist, ylist
     

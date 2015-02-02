@@ -114,9 +114,9 @@ class TestBasics(TestCase):
         methods = [method for method in odespy.list_available_solvers()
                    if method not in self.exceptions]
 
-        print self.help
+        print(self.help)
         for method in methods:
-            print 'Testing %s' % method
+            print('Testing %s' % method)
             # Start up integration
             solver = eval('odespy.%s' % method)(self.f, **self.kwargs)
             solver.set_initial_condition(self.u0)
@@ -142,9 +142,9 @@ class TestBasics(TestCase):
                         u_final, exact_final,
                         err_msg='Failed with result of method %s' % method,
                         decimal=1, verbose=True)
-                except Exception, e:
-                    print e
-                    print 'Running method', method, 'for', problem
+                except Exception as e:
+                    print(e)
+                    print('Running method', method, 'for', problem)
                     raise e
 
 # Dictionaries for each model problem, holding info about

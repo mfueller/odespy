@@ -33,7 +33,7 @@ legends = []
 
 for solver in solvers:
     solver_name = str(solver)  # short description of solver
-    print solver_name
+    print(solver_name)
 
     solver.set_initial_condition([problem.Theta, 0])
     N = N_per_period*problem.period

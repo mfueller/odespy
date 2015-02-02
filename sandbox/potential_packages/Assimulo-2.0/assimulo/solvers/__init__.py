@@ -18,6 +18,6 @@
 __all__ = ["euler","radau5","sundials","runge_kutta"]
 
 from euler import ExplicitEuler
-from radau5 import Radau5ODE, Radau5DAE
+from .radau5 import Radau5ODE, Radau5DAE
 from sundials import IDA, CVode
-from runge_kutta import RungeKutta34, RungeKutta4
+from .runge_kutta import RungeKutta34, RungeKutta4

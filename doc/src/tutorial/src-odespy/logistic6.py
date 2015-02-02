@@ -40,7 +40,7 @@ class Solver:
         time_points = np.linspace(0, self.problem.T, self.N+1)
         self.u, self.t = self.solver.solve(
             time_points, self.problem.terminate)
-        print 'Final u(t=%g)=%g' % (t[-1], u[-1])
+        print('Final u(t=%g)=%g' % (t[-1], u[-1]))
 
     def plot(self):
         plt.plot(self.t, self.u, 'r-',

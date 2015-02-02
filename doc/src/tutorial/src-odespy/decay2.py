@@ -19,7 +19,7 @@ def terminate(y, x, stepnumber):
 
 y, x = solver.solve(x_points, terminate)
 
-print 'Final y(x=%g)=%g' % (x[-1], y[-1])
+print('Final y(x=%g)=%g' % (x[-1], y[-1]))
 
 from matplotlib.pyplot import *
 plot(x, y)

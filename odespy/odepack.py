@@ -1,6 +1,6 @@
 __author__ = ['Liwei Wang, Univ. of Oslo']
 
-from solvers import Solver
+from .solvers import Solver
 import numpy as np
 import sys, inspect
 
@@ -404,7 +404,7 @@ used to describe the structure of matrix A.''',
         type=(list, tuple, np.ndarray),
         # integer sequence
         extra_check=lambda int_seq: \
-            np.array(map(lambda x: isinstance(x, int),int_seq)).all()),
+            np.array([isinstance(x, int) for x in int_seq]).all()),
 
     ia = dict(
         help='''Integer array with length neq+1 which contains
@@ -419,7 +419,7 @@ k < ia(j+1).''',
         type=(list, tuple, np.ndarray),
         # integer sequence
         extra_check=lambda int_seq: \
-             np.array(map(lambda x: isinstance(x, int),int_seq)).all()),
+             np.array([isinstance(x, int) for x in int_seq]).all()),
 
     jc = dict(
         help='''Integer array which describes the sparsity
@@ -430,14 +430,14 @@ the sparse structure of Jacobian matrix.''',
         type=(list, tuple, np.ndarray),
         # integer sequence
         extra_check=lambda int_seq: \
-            np.array(map(lambda x: isinstance(x, int),int_seq)).all()),
+            np.array([isinstance(x, int) for x in int_seq]).all()),
 
     ic = dict(
         help='Array which contains starting locations in jc.',
         type=(list, tuple, np.ndarray),
         # integer sequence
         extra_check=lambda int_seq: \
-            np.array(map(lambda x: isinstance(x, int),int_seq)).all()),
+            np.array([isinstance(x, int) for x in int_seq]).all()),
 
     # mb, nb describe the block-tridiagonal form of matrix.
     mb = dict(
@@ -463,7 +463,7 @@ Require: mb>=1, nb>=4, mb*nb==neq.''',
 
     )
 
-import solvers
+from . import solvers
 solvers._parameters.update(_parameters_Odepack)
 
 
@@ -735,9 +735,9 @@ class Odepack(Solver):
             else:
                 value = getattr(self, name)
                 if value < min_value:
-                    print '''
+                    print('''
           Insufficient input! "%s"=%d are reset to be the minimum size = %d '''\
-                        % (name, value, min_value)
+                        % (name, value, min_value))
                     setattr(self, name, min_value)
 
     def check_tol(self):
@@ -759,8 +759,8 @@ class Odepack(Solver):
         for pars in (('ia', 'ja'), ('ic', 'jc'), ('ml', 'mu'), ('mb', 'nb')):
             arg_a, arg_b = pars
             if int(hasattr(self, arg_a) + hasattr(self, arg_b)) == 1:
-                raise ValueError,'\
-        Error! %s and %s have to be input simutaneously!' % (arg_a, arg_b)
+                raise ValueError('\
+        Error! %s and %s have to be input simutaneously!' % (arg_a, arg_b))
 
     def check_iaja(self):
         '''
@@ -797,7 +797,7 @@ class Odepack(Solver):
                               array_a[-1] != len(array_b)+1)
                 for error_index in range(3):
                     if iaja_check[error_index]:
-                        raise ValueError, err_messages[error_index]
+                        raise ValueError(err_messages[error_index])
 
     def validate_data(self):
         '''
@@ -945,17 +945,17 @@ class Odepack(Solver):
         '''
         nsteps = getattr(self, 'nsteps', 500)
         if nsteps == 2000:    # The maximum step-amount has been reached
-            raise ValueError, '''
+            raise ValueError('''
         Failed iteration although step number has been set to 2000.
-        Please check your input.'''
+        Please check your input.''')
         mx_new = min(nsteps+200, 2000)
         # maximum limitation is set to 2000
         self.nsteps = mx_new  # valid for the following steps
-        print '''\
+        print('''\
         Excessive amount of work detected!
         Input step amount "nsteps"=%d is not enough for iteration!
         nsteps has been reset to %d to avoid this error!'''\
-        % (nsteps, mx_new)
+        % (nsteps, mx_new))
         return mx_new
 
     def tol_multiply(self, tolsf):
@@ -966,7 +966,7 @@ class Odepack(Solver):
         Then we could try to adjust tolerance settings with suggested factor
         to avoid this error.
         '''
-        print 'Tolerance is scaled by suggested factor %.2g''' % tolsf
+        print('Tolerance is scaled by suggested factor %.2g''' % tolsf)
         self.rtol *= tolsf
         self.atol *= tolsf
 
@@ -975,7 +975,7 @@ class Odepack(Solver):
         Length of real work array is smaller than actually required length.
 	Then we could expand work array to avoid this error.
         '''
-        print 'The length of real work array has been reset to %d' % new_lrw
+        print('The length of real work array has been reset to %d' % new_lrw)
         if expand:          # Expand real arrays for linearly implicit solvers
             self.rwork = list(self.rwork) + [0.]*(new_lrw-self.lrw)
         self.lrw = new_lrw
@@ -986,7 +986,7 @@ class Odepack(Solver):
         integer work array when it is too short.
 	Then we could expand work array to required length to avoid this error.
         '''
-        print 'The length of integer work array has been reset to %d' % new_liw
+        print('The length of integer work array has been reset to %d' % new_liw)
         if expand:          # Expand integer arrays for linearly implicit solvers
             self.iwork = list(self.iwork) + [0.]*(new_liw - self.liw)
         self.liw = new_liw
@@ -1023,11 +1023,11 @@ class Odepack(Solver):
             value = g(t_current, u_current)
         for i in range(ng):
             if jroot[i]:   # found root for i-th constraint equation
-                print '''
+                print('''
         Root found at t = %g for %dth constraint function in g''' \
-                    % (t_current, i+1)
+                    % (t_current, i+1))
                 value_ith = value[i] if ng > 1 else value
-                print 'Error in location of root is %g' % value_ith
+                print('Error in location of root is %g' % value_ith)
 
 
     def solve(self, time_points, terminate=None):
@@ -1069,13 +1069,11 @@ class Odepack(Solver):
                                  self.jac_column_f77)
             # call extension module
             nstop, u, istate, rinfo, iinfo = \
-                apply(self._odepack.solve,
-                      (terminate_int, itermin, nstop, f, u,
+                self._odepack.solve(*(terminate_int, itermin, nstop, f, u,
                        self.t, self.itol, self.rtol, self.atol,
                        istate, self.iopt, self.rwork_in, self.lrw,
                        self.iwork_in, self.liw, jac, jac_column,
-                       self.mf, g, self.ng, solver_name),
-                      self._extra_args_fortran)
+                       self.mf, g, self.ng, solver_name), **self._extra_args_fortran)
             tried += 1
             if nstop == step_no:    # successful
                 self.finished = True
@@ -1087,11 +1085,11 @@ class Odepack(Solver):
                 self.finished = True
                 tried = 0
             elif istate == 0:
-                print "Iteration stops at step Nr.%d," % nstop
-                print " when function TERMINATE return with True."
+                print("Iteration stops at step Nr.%d," % nstop)
+                print(" when function TERMINATE return with True.")
                 self.finished = True
             elif istate < 0:                   # Error occurs!
-                print self._error_messages[istate] + str(rinfo[1])
+                print(self._error_messages[istate] + str(rinfo[1]))
                 if istate == -1:    # Increase maximum step-number.
                     self.iwork_in[5] = self.new_stepnr()
                     self.iopt = 1
@@ -1168,19 +1166,16 @@ class Odepack(Solver):
 
         tried = 0
         while tried < 5:       # prevent endless loop
-            u_new, t, istate, iwork = apply(\
-                eval('self._odepack.d%s' % solver_name),\
-                (res, adda, jac, neq, u[n].copy(), self.ydoti, t, t_next,
+            u_new, t, istate, iwork = eval('self._odepack.d%s' % solver_name)(*(res, adda, jac, neq, u[n].copy(), self.ydoti, t, t_next,
                  self.itol, self.rtol, self.atol, itask, istate, self.iopt,
-                 self.rwork, self.lrw, self.iwork, self.liw, self.mf),
-                self._extra_args_fortran)
+                 self.rwork, self.lrw, self.iwork, self.liw, self.mf), **self._extra_args_fortran)
             tried += 1
 	    # "istate" indicates the returned status
             if istate >= 1:
                 # successful return status
                 break
             else:       # Error occurs!
-                print self._error_messages[istate] + str(self.rwork[12])
+                print(self._error_messages[istate] + str(self.rwork[12]))
                 if istate == -1:    # Increase maximum step-number.
                     self.iwork[5], self.iopt = self.new_stepnr(), 1
                 elif istate == -2:  # Multiply tolerance with suggested factor
@@ -1243,7 +1238,7 @@ class Lsode(Odepack):
         self._parameters['jac_banded_f77']['paralist_new'] = 'u,t,ml,mu'
         self._parameters['jac_banded_f77']['name_wrapped'] = 'jac_banded'
 
-        self._parameters['corrector_iter_method']['range'] = range(6)
+        self._parameters['corrector_iter_method']['range'] = list(range(6))
         self._parameters['corrector_iter_method']['condition-list'] = \
                 {'1':[('jac','jac_f77'),],\
                  '4':['ml','mu',('jac_banded','jac_banded_f77')],\
@@ -1541,9 +1536,9 @@ Jacobian type choice with 4 possible values:
             if not hasattr(self.g_f77,'_cpointer'):
                 self.ng = np.asarray(self.g(time_points[0],self.U0)).size
             elif not hasattr(self,'ng'):
-                raise ValueError, '''
+                raise ValueError('''
         Unsufficient input! ng must be specified if g is input as a
-        Fortran subroutine. '''
+        Fortran subroutine. ''')
         return Odepack.solve(self,time_points, terminate=terminate)
 
 ### End of Lsodar ###
@@ -1583,7 +1578,7 @@ class Lsodes(Odepack):
         self._parameters['jac_column_f77']['paralist_new'] = 'u,t,j'
         self._parameters['jac_column_f77']['name_wrapped'] = 'jac_column'
 
-        self._parameters['moss']['range'] = range(4)
+        self._parameters['moss']['range'] = list(range(4))
         self._parameters['moss']['condition-list'] = \
                         {1: [('jac_column', 'jac_column_f77'),], \
                          0: ['ia', 'ja']}
@@ -1777,7 +1772,7 @@ Choice for the corrector iteration method:
             elif with_full_adda:
                 self.iter_method = 2
             else:
-                raise ValueError, 'adda must be supplied in Lsodi.'
+                raise ValueError('adda must be supplied in Lsodi.')
 
     def set_jac(self):
         if self.iter_method == 4:
@@ -1884,7 +1879,7 @@ Choice for the corrector iteration method:
      (difference quotient) sparse Jacobian matrix.
      This uses extra calls to "res" per dr/du
      evaluation. (Default)""",
-        self._parameters['moss']['range'] = range(5)
+        self._parameters['moss']['range'] = list(range(5))
         self._parameters['moss']['condition-list'] = \
                          {'1':['jac_lsodis',],
                           '0':['ia','ja','ic','jc'],
@@ -2072,9 +2067,9 @@ Choice for the corrector iteration method:
         if not Odepack.validate_data(self):
             return False
         if self.mb*self.nb != self.neq:
-                raise ValueError,'''
+                raise ValueError('''
     The requirement for block size (mb,nb) are: mb>=1, nb>=4, mb*nb=neq=%d.
-    Your block size are (%d,%d). ''' % (self.neq, mb, nb)
+    Your block size are (%d,%d). ''' % (self.neq, mb, nb))
         return True
 
     def solve(self, time_points, terminate=None):

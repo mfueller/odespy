@@ -27,9 +27,9 @@ for solver in solvers:
 # Compare solutions at the end point:
 exact = numpy.exp(1j*w*tp).real[-1]
 min_cpu = min(cpu); cpu = [c/min_cpu for c in cpu]  # normalize
-print 'Exact: u(%g)=%g' % (tp[-1], exact)
+print('Exact: u(%g)=%g' % (tp[-1], exact))
 for solver, cpu_time in zip(solvers, cpu):
-    print '%-15s u(%g)=%.6f (error: %10.2E, cpu: %.1f)' % \
+    print('%-15s u(%g)=%.6f (error: %10.2E, cpu: %.1f)' % \
           (solver.__class__.__name__,
            solver.t[-1], solver.u[-1].real,
-           exact - solver.u[-1].real, cpu_time)
+           exact - solver.u[-1].real, cpu_time))

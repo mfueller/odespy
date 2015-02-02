@@ -67,4 +67,4 @@ st.plot(t, theta, t, theta_e, legend=('EC', 'exact'), title='theta motion')
 #tol = 1E-14
 #assert abs(diff_exact - diff_EC) < tol, \
 #       'diff_exact=%g, diff_EulerCromer=%g' % (diff_exact, diff_EC)
-raw_input()
+input()
