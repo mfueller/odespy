@@ -463,8 +463,8 @@ Require: mb>=1, nb>=4, mb*nb==neq.''',
 
     )
 
-from . import solvers
-solvers._parameters.update(_parameters_Odepack)
+from odespy.solvers import _parameters
+_parameters.update(_parameters_Odepack)
 
 
 class Odepack(Solver):

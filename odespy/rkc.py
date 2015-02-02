@@ -31,8 +31,9 @@ This subroutine should be defined in form:
         type=callable),
     )
 
-from . import solvers
-solvers._parameters.update(_parameters_RKC)
+#from . import solvers
+from odespy.solvers import _parameters
+_parameters.update(_parameters_RKC)
 
 class RKC(Adaptive):
     """

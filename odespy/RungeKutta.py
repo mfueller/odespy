@@ -1,4 +1,8 @@
-from .solvers import Solver, Adaptive
+#from .solvers import Solver, Adaptive
+#from odespy.solvers import Solver, Adaptive
+from odespy.solvers import Solver, Adaptive
+#from odespy.solvers import *
+
 import numpy as np
 import collections
 

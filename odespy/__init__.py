@@ -1261,7 +1261,7 @@ from .rkc import *
 from .rkf45 import *
 from .odepack import *
 from .radau5 import *
-from . import problems
+#from odespy import problems
 
 # Update doc strings with common info
 class_, doc_str, classname = None, None, None
@@ -1283,7 +1283,7 @@ __doc__ =  __doc__ + typeset_toc(toc) + _tutorial
 
 # Do not pollute namespace
 del class_, doc_str, classname, classnames, toc, typeset_toc, \
-    table_of_parameters, name, obj, inspect
+    table_of_parameters, inspect
 
 if __name__ == '__main__':
     from os.path import join

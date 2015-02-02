@@ -80,8 +80,8 @@ defined as (note that rpar,ipar are not used)::
         type=callable),
 )
 
-from . import solvers
-solvers._parameters.update(_parameters_Radau5)
+from odespy.solvers import _parameters
+_parameters.update(_parameters_Radau5)
 
 
 class Radau5(Solver):
