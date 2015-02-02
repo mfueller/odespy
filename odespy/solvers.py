@@ -925,10 +925,10 @@ class Solver:
         if with_f and hasattr(self, 'users_f'):
             if not hasattr(self.users_f, '__name__'):     # class instance?
                 f_name = self.users_f.__class__.__name__
-	    else:    # Ordinary functions
+            else:    # Ordinary functions
                 f_name = self.users_f.__name__
-	        if f_name == '<lambda>':   # lambda function
-	  	    f_name = 'lambda u, t: ...'
+                if f_name == '<lambda>':   # lambda function
+                    f_name = 'lambda u, t: ...'
             args.append('f=%s' % f_name)
 
         # form all parameters
@@ -954,10 +954,10 @@ class Solver:
         if hasattr(self, 'users_jac'):
             if hasattr(self.users_jac, '__name__'):     # plain function?
                 f_name = self.users_jac.__name__
-	        if f_name == '<lambda>':   # lambda function
-	  	    #f_name = 'lambda u, t: ...'
-	  	    f_name = 'lambda'
-	    else:                                       # class instance
+                if f_name == '<lambda>':   # lambda function
+                    #f_name = 'lambda u, t: ...'
+                    f_name = 'lambda'
+            else:                                       # class instance
                 f_name = self.users_jac.__class__.__name__
             args.append('jac=%s' % f_name)
 
@@ -1498,7 +1498,7 @@ class RK2(Solver):
         dt = t[n+1] - t[n]
         K1 = dt*f(u[n], t[n])
         K2 = dt*f(u[n] + 0.5*K1, t[n] + 0.5*dt)
-	u_new = u[n] + K2
+        u_new = u[n] + K2
         return u_new
 
 
