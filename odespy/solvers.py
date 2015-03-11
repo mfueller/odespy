@@ -1154,7 +1154,7 @@ class Solver:
         if (not isinstance(self.t, (list, tuple, np.ndarray))) \
             or (not np.asarray(
             # all items in self.t should be numbers
-            [isinstance(t, (int,float)) for t in self.t]).all()):
+            [isinstance(t, (np.int64, int,float)) for t in self.t]).all()):
                 raise TypeError('solve: time_points(=%s) is not a proper '\
                     'sequence of real numbers' % str(self.t))
 
@@ -2792,8 +2792,9 @@ class odelab(Adaptive):
     solvers = 'ExplicitEuler ExplicitTrapezoidal ImplicitEuler RungeKutta34 RungeKutta4 SymplecticEuler ImplicitEuler LDIRK343 LobattoIIIA LobattoIIIB LobattoIIIC LobattoIIICs LobattoIIID MultiRKDAE RKDAE RadauIIA RungeKutta Spark Spark2 Spark3 Spark4 AdamsBashforth AdamsBashforth1 AdamsBashforth2 AdamsBashforth2e Butcher Butcher1 Butcher3 ExplicitGeneralLinear GeneralLinear Heun Kutta Kutta38 Kutta4 McLachlan NonHolonomicEnergy NonHolonomicEnergy0 NonHolonomicEnergyEMP NonHolonomicLeapFrog SymplecticEuler ABLawson ABLawson2 ABLawson3 ABLawson4 ABNorset4 Exponential GenLawson45 HochOst4 Lawson4 LawsonEuler Phi Polynomial RKMK4T'.split()
     DAE_solvers = 'SymplicticEuler MultiRKDAE RKDAE Spark Spark2 Spark3 Spark4'.split()
     not_valid = "SymplecticEuler LDIRK343 LobattoIIIA LobattoIIIB LobattoIIIC LobattoIIICs LobattoIIID MultiRKDAE RKDAE RadauIIA RungeKutta Spark Spark2 Spark3 Spark4 AdamsBashforth AdamsBashforth2 AdamsBashforth2e Butcher Butcher1 Butcher3 ExplicitGeneralLinear GeneralLinear Kutta McLachlan NonHolonomicEnergy NonHolonomicEnergy0 NonHolonomicEnergyEMP NonHolonomicLeapFrog SymplecticEuler ABLawson ABLawson2 ABLawson3 ABLawson4 ABNorset4 Exponential GenLawson45 HochOst4 Lawson4 LawsonEuler Phi Polynomial RKMK4T".split()
-    solvers = [solver for solver in solvers if not solver in not_valid]
-
+    #nv = not_valid
+    #solvers = [solver for solver in solvers if not solver in nv]
+    #solvers =
     __doc__ = __doc__ % (str(solvers)[1:-1])
 
     def initialize(self):
