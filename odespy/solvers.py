@@ -116,7 +116,9 @@ for doing one (adaptive) time step, called in the ``advance`` method.
 import pprint, sys, os, inspect
 import numpy as np
 import collections
+import logging
 
+log = logging.getLogger(__name__)
 # Collection of all possible parameters in all solvers in this package
 # (their order is determined by the _optional_parameters and
 # _required_parameters lists in the solver classes)
@@ -2611,7 +2613,7 @@ class ode_scipy(Adaptive):
         u, f, n, t = self.u, self.f, self.n, self.t
         u_new = self.integrator.integrate(t[n+1])
         if not self.integrator.successful():
-            print('Warning: %s call to ode.method.integrate in scipy.integrate was not successful' % self.__class__.__name__)
+            log.warning('Warning: %s call to ode.method.integrate in scipy.integrate was not successful' % self.__class__.__name__)
         if len(u_new) == 1:
             return u_new[0]
         else:
